@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Digits;
 
@@ -32,6 +35,7 @@ public class Book {
 	private Double price;
 	
 	@ManyToOne 
+	@JsonIgnore
 	@JoinColumn(name = "categoryid") 
 	private Category category;
 	

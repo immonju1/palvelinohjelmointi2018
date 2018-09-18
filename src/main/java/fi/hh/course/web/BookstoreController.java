@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import fi.hh.course.domain.Book;
 import fi.hh.course.BookstoreApplication;
 import fi.hh.course.domain.Book;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import fi.hh.course.domain.Category;
 import fi.hh.course.domain.CategoryRepository;
 
 import java.lang.*;
+import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +35,18 @@ public class BookstoreController {
 	@Autowired
 	private CategoryRepository crepository;
 	
+	// RESTful service to get all books
+    @RequestMapping(value="/books", method = RequestMethod.GET)
+    public @ResponseBody List<Book> bookListRest() {	
+        return (List<Book>) repository.findAll();
+    } 
+	
+	// RESTful service to get book by id
+    @RequestMapping(value="/book/{id}", method = RequestMethod.GET)
+    public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId) {	
+    	return repository.findById(bookId);
+    }
+    
     @RequestMapping(value="/booklist")
     public String studentList(Model model) {	
         model.addAttribute("books", repository.findAll());
