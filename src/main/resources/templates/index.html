@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Form</h1>
+    <form action="#" th:action="@{/index}" th:object="${book}" method="post">
+    	<table>
+    	<tr>
+    		<td>Author: <input type="text" th:field="*{author}" /></td>
+        </tr>
+        <tr>
+        	<td>ISBN: <input type="text" th:field="*{isbn}" /></td>
+        	<td th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}">Error</td>
+        </tr>
+        </table>
+        <p><input type="submit" value="Submit" /></p>
+    </form>
+</body>
+</html>

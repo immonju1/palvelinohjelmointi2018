@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editbook</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="../css/main.css" th:href="@{../css/main.css}" /> 
+</head>
+<body>
+<h1>Edit book</h1>
+<form th:object="${book}" th:action="@{../editSave}" action="#" method="post"> 
+<table>
+
+<tr>	
+			<td><input type="hidden" th:field="*{id}" /> </td><td></td>
+			<tr>
+		  	<td>Author</td>
+			<td><input type="text" th:field="*{author}"/></td>
+			<td th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Error</td>
+			<tr>
+		  	<td>Title</td>
+			<td><input type="text" th:field="*{title}"/></td>
+			<td th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Error</td>
+			<tr>
+		  	<td>Year</td>
+			<td><input type="text" th:field="*{year}" /></td>
+			<td th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Error</td>
+			<tr>
+			<td>ISBN</td>
+			<td><input type="text" th:field="*{isbn}" /></td>
+			<td th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}">Error</td>
+			<tr>
+			<td>Price</td>
+			<td><input type="text" th:field="*{price}" /></td>
+			<td th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Error</td>
+			</tr>
+			<tr>
+			<td>Category</td>
+			<td>
+			<select id="catlist" th:field="*{category}"> 
+			<option th:each="category: ${categories}" th:value="${category.categoryid}" th:text="${category.name}"></option> </select>
+			</td>
+			</tr>
+	</table>
+	<input type="submit" value="Save"></input> 
+	</form>
+	<a href="/booklist">BookStore</a>
+</body>
