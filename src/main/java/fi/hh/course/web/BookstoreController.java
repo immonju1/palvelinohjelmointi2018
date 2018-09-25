@@ -15,6 +15,8 @@ import fi.hh.course.domain.Book;
 import fi.hh.course.BookstoreApplication;
 import fi.hh.course.domain.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import fi.hh.course.domain.BookRepository;
 import fi.hh.course.domain.Category;
 import fi.hh.course.domain.CategoryRepository;
@@ -35,6 +37,13 @@ public class BookstoreController {
 	@Autowired
 	private CategoryRepository crepository;
 	
+	// Show all books
+    @RequestMapping(value="/login")
+    public String login() {	
+        return "login";
+    }
+	
+	
 	// RESTful service to get all books
     @RequestMapping(value="/books", method = RequestMethod.GET)
     public @ResponseBody List<Book> bookListRest() {	
@@ -53,6 +62,7 @@ public class BookstoreController {
         return "booklist";
     }
     
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/add") 
     public String addStudent(Model model){ 
     	model.addAttribute("book", new Book()); 
@@ -96,7 +106,7 @@ public class BookstoreController {
     	repository.deleteById(bookId); 
     	return "redirect:../booklist"; 
     }
-    
+    /*
     @RequestMapping(value="/index", method=RequestMethod.GET)
     public String addBook(Model model) {
         model.addAttribute("book", new Book());
@@ -112,5 +122,5 @@ public class BookstoreController {
     	model.addAttribute("book", book);
         return "result";
     }
-	
+	*/
 }
