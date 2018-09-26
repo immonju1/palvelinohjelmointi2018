@@ -43,7 +43,6 @@ public class BookstoreController {
         return "login";
     }
 	
-	
 	// RESTful service to get all books
     @RequestMapping(value="/books", method = RequestMethod.GET)
     public @ResponseBody List<Book> bookListRest() {	
@@ -70,13 +69,15 @@ public class BookstoreController {
     	return "addbook"; 
     }
     
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/edit/{id}") 
     public String addStudent(@PathVariable("id") Long bookId, Model model){
     	model.addAttribute("book", repository.findById(bookId)); 
     	model.addAttribute("categories", crepository.findAll()); 
     	return "editbook";
     }
-       
+    
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/save", method = RequestMethod.POST) 
     public String save(@Valid Book book, BindingResult bindingResult, Model model){ 
     	 if (bindingResult.hasErrors()) {
@@ -89,6 +90,7 @@ public class BookstoreController {
     	return "redirect:booklist"; 
     } 
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/editSave", method = RequestMethod.POST) 
     public String editSave(@Valid Book book, BindingResult bindingResult, Model model){ 
     	 if (bindingResult.hasErrors()) {
@@ -101,6 +103,7 @@ public class BookstoreController {
     	return "redirect:booklist"; 
     } 
     
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET) 
     public String deleteStudent(@PathVariable("id") Long bookId, Model model) { 
     	repository.deleteById(bookId); 
